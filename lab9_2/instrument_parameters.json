@@ -1,0 +1,9 @@
+[{
+        "name": "Монохроматор",
+        "type": "УМ-2",
+        "measurement_limit": 3600,
+        "division_value": 2,
+        "accuracy_class": null,
+        "systematic_error": 1
+    }
+]

@@ -1,0 +1,146 @@
+{
+    "mercury_lamp": [{
+            "color": "Фиолетовые",
+            "intensity": "сильная",
+            "wavelength_nm": 404.6,
+            "forword": 3138,
+            "reverse": 3139,
+            "average_div": null
+        }, {
+            "color": "Фиолетовые",
+            "intensity": "средняя",
+            "wavelength_nm": 408.0,
+            "forword": 3076,
+            "reverse": 3076,
+            "average_div": null
+        }, {
+            "color": "Синяя",
+            "intensity": "сильная",
+            "wavelength_nm": 435.8,
+            "forword": 2594,
+            "reverse": 2594,
+            "average_div": null
+        }, {
+            "color": "Голубая",
+            "intensity": "средняя",
+            "wavelength_nm": 491.6,
+            "forword": 1932,
+            "reverse": 1938,
+            "average_div": null
+        }, {
+            "color": "Зелено-голубая",
+            "intensity": "средняя",
+            "wavelength_nm": 496.0,
+            "forword": 1896,
+            "reverse": 1894,
+            "average_div": null
+        }, {
+            "color": "Зеленая",
+            "intensity": "сильная",
+            "wavelength_nm": 546.4,
+            "forword": 1511,
+            "reverse": 1513,
+            "average_div": null
+        }, {
+            "color": "Желтый дублет",
+            "intensity": "сильная",
+            "wavelength_nm": 576.9,
+            "forword": 1336,
+            "reverse": 1340,
+            "average_div": null
+        }, {
+            "color": "Желтый дублет",
+            "intensity": "средняя",
+            "wavelength_nm": 578.9,
+            "forword": 1332,
+            "reverse": 1328,
+            "average_div": null
+        }, {
+            "color": "Оранжевые",
+            "intensity": "слабая",
+            "wavelength_nm": 607.3,
+            "forword": 1194,
+            "reverse": 1192,
+            "average_div": null
+        }, {
+            "color": "Оранжевые",
+            "intensity": "слабая",
+            "wavelength_nm": 612.3,
+            "forword": 1170,
+            "reverse": 1170,
+            "average_div": null
+        }, {
+            "color": "Красные",
+            "intensity": "средняя",
+            "wavelength_nm": 623.4,
+            "forword": 1124,
+            "reverse": 1122,
+            "average_div": null
+        }, {
+            "color": "Красные",
+            "intensity": "слабая",
+            "wavelength_nm": 671.6,
+            "forword": 946,
+            "reverse": 946,
+            "average_div": null
+        }, {
+            "color": "Красные",
+            "intensity": "средняя",
+            "wavelength_nm": 690.7,
+            "forword": 888,
+            "reverse": 890,
+            "average_div": null
+        }, {
+            "color": "Красные",
+            "intensity": "слабая",
+            "wavelength_nm": 708.2,
+            "forword": 836,
+            "reverse": 840,
+            "average_div": null
+        }
+    ],
+    "neon_lamp": [{
+            "color": "Красная 1",
+            "forword": 696,
+            "reverse": 700,
+            "average_div": null
+        }, {
+            "color": "Красная 2",
+            "forword": 700,
+            "reverse": 702,
+            "average_div": null
+        }, {
+            "color": "Оранжевая",
+            "forword": 792,
+            "reverse": 798,
+            "average_div": null
+        }, {
+            "color": "Желтая",
+            "forword": 936,
+            "reverse": 932,
+            "average_div": null
+        }, {
+            "color": "Зелено-голубая",
+            "forword": 1192,
+            "reverse": 1192,
+            "average_div": null
+        }
+    ],
+    "dispersion_for_spectrum": [{
+            "wavelength_nm": 400
+        }, {
+            "wavelength_nm": 450
+        }, {
+            "wavelength_nm": 500
+        }, {
+            "wavelength_nm": 550
+        }, {
+            "wavelength_nm": 600
+        }, {
+            "wavelength_nm": 650
+        }, {
+            "wavelength_nm": 700
+        }
+    ]
+
+}
