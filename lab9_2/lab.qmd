@@ -51,13 +51,13 @@ kable(data,
 library(jsonlite)
 library(knitr)
 
-if (!file.exists("data.json")) {
+if (!file.exists("dataR.json")) {
   stop("Файл 'data.json' не найден!")
 }
 
-data <- fromJSON("data.json")
+data <- fromJSON("dataR.json")
 mercury_lamp <- data$`mercury_lamp`
-mercury_lamp$`average_div` <- (mercury_lamp$`forword` + mercury_lamp$`reverse`) / 2
+mercury_lamp$`average` <- (mercury_lamp$`forword` + mercury_lamp$`reverse`) / 2
 
 kable(mercury_lamp, 
       escape = FALSE,
@@ -82,7 +82,7 @@ library(jsonlite)
 library(knitr)
 
 neon_lamp <- data$neon_lamp
-neon_lamp$`average_div` <- (neon_lamp$`forword` + neon_lamp$`reverse`) / 2
+neon_lamp$`average` <- (neon_lamp$`forword` + neon_lamp$`reverse`) / 2
 
 kable(neon_lamp, 
       escape = FALSE,
@@ -160,9 +160,9 @@ library(ggplot2)
 library(knitr)
 
 # Интерполяция (используем сплайн для гладкой зависимости)
-spline_model <- splinefun(mercury_lamp$average_div, mercury_lamp$wavelength_nm)
+spline_model <- splinefun(mercury_lamp$average, mercury_lamp$wavelength_nm)
 
-target_wavelengths <- spline_model(neon_lamp$`average_div`)
+target_wavelengths <- spline_model(neon_lamp$`average`)
 
 results <- data.frame(
   NeonLamp = neon_lamp,
@@ -223,10 +223,8 @@ matched_results <- find_closest_matches(mercury_lamp, target_wavelengths)
 dispersion <- data.frame()
 
 for (match in matched_results) {
-  line1 <- match$max_line
-  line2 <- match$min_line
-  
-  d_f_div <- (line1$forword - line2$forword) / (line2$wavelength_nm - line1$wavelength_nm)
+  d_f_div <- (match$max_line$forword - match$min_line$forword) / 
+    (match$min_line$wavelength_nm - match$max_line$wavelength_nm)
   d_f_rad <- d_f_div * pi / 180
   d_l <- d_f_rad * 270
   
@@ -252,23 +250,36 @@ kable(
   )
 ```
 
+<!--
 # Примеры вычислений
 
+```{r}
+#| label: calculations
+
+# Вычисления
+a <- 7
+b <- 4
+result <- a + b
+```
+
 \begin{align*}
-  \text{По формуле \eqref{eq:n1:1}: } \upsilon &= \lambda\nu = 0.34 \cdot 1000 = 340.0 \text{ м/с} \\
+	\text{По формуле \eqref{eq:n1:1}: } \varphi= \frac{\varphi_1 + \varphi_2}{2} = \text{{ `r result` }}
 \end{align*}
+-->
 
 # Графики
 
 ```{r}
 #| label: fig-graduation_graph
 #| fig-cap: Градуировочный график
+#| fig-width: 10
+#| fig-height: 8
 
 library(ggplot2)
 library(showtext)
 showtext_auto()
 
-ggplot(mercury_lamp, aes(x = wavelength_nm, y = average_div)) +
+ggplot(mercury_lamp, aes(x = wavelength_nm, y = average)) +
   geom_point(color = "black", size = 2) +
   geom_line(color = "grey", linetype = "longdash") +
   labs(
@@ -292,6 +303,8 @@ ggplot(mercury_lamp, aes(x = wavelength_nm, y = average_div)) +
 ```{r}
 #| label: fig-dispersion_graph
 #| fig-cap: График зависимости линейной дисперсии монохроматора от длины волны
+#| fig-width: 10
+#| fig-height: 6
 
 library(ggplot2)
 library(latex2exp)
