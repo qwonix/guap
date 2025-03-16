@@ -15,7 +15,7 @@
 
 .data?
 var1 WORD ?
-var2 QWORD ?
+var2 SQWORD ?
 
 .data
 arr1 BYTE 00010001b, 34o, 41, 0D5h
