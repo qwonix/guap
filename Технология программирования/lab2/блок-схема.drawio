@@ -1,0 +1,114 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" version="26.2.1">
+  <diagram name="Страница — 1" id="eWZ3gr7xKHpVwp83FmLY">
+    <mxGraphModel dx="3260" dy="1262" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dbquGQu09CkFA9yUXEVl-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-2" target="dbquGQu09CkFA9yUXEVl-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-2" value="Начало" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_2;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="320" y="70" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-6" target="dbquGQu09CkFA9yUXEVl-30" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="1450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-6" value="ЦЕЛОСТНОСТЬ_ФАЙЛА&amp;nbsp; = ВЫПОЛНИТЬ ПРОВЕРИТЬ_ЦЕЛОСТНОСТЬ(ФАЙЛ)" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="120" y="900" width="500" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-7" target="dbquGQu09CkFA9yUXEVl-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-11" value="Нет" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="dbquGQu09CkFA9yUXEVl-10" vertex="1" connectable="0">
+          <mxGeometry x="-0.4182" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-7" target="dbquGQu09CkFA9yUXEVl-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-7" value="ЦЕЛОСТНОСТЬ_ФАЙЛА == ПРАВДА?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="245" y="1060" width="250" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-8" target="dbquGQu09CkFA9yUXEVl-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="990" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="700" y="1350" />
+              <mxPoint x="380" y="1350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-8" value="ВЫПОЛНИТЬ&amp;nbsp; ДОБАВИТЬ_ОШИБКУ_В_ЛОГ" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="530" y="1190" width="340" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-9" target="dbquGQu09CkFA9yUXEVl-13" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="85" y="1350" />
+              <mxPoint x="380" y="1350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-9" value="ВЫПОЛНИТЬ ДОБАВИТЬ_В_СПИСОК_ВОССТАНОВЛЕННЫХ_ФАЙЛОВ(ФАЙЛ)" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="-110" y="1190" width="390" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-13" target="dbquGQu09CkFA9yUXEVl-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-190" y="1460" />
+              <mxPoint x="-190" y="935" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-13" value="i = i&amp;nbsp; +1" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="330" y="1410" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-14" target="dbquGQu09CkFA9yUXEVl-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-14" value="СПИСОК_ИДЕНТИФИКАТОРОВ_ФАЙЛОВ" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;" parent="1" vertex="1">
+          <mxGeometry x="198.5" y="230" width="343" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-16" value="i = &amp;lt;начальное значение&amp;gt;&lt;div&gt;СПИСОК_ВОССТАНОВЛЕННЫХ_ФАЙЛОВ&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="223.75" y="350" width="292.5" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="H0dJCFcZJnLONA3Rf_2p-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dbquGQu09CkFA9yUXEVl-17" target="H0dJCFcZJnLONA3Rf_2p-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-17" value="i &amp;lt;= конечное значение" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="270" y="500" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-16" target="dbquGQu09CkFA9yUXEVl-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-6" target="dbquGQu09CkFA9yUXEVl-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-29" value="Конец" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="890" y="1440" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-30" value="ВОССТАНОВЛЕННЫЕ_ФАЙЛЫ" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;" parent="1" vertex="1">
+          <mxGeometry x="810" y="1320" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dbquGQu09CkFA9yUXEVl-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="dbquGQu09CkFA9yUXEVl-30" target="dbquGQu09CkFA9yUXEVl-29" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0dJCFcZJnLONA3Rf_2p-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0dJCFcZJnLONA3Rf_2p-1" target="dbquGQu09CkFA9yUXEVl-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0dJCFcZJnLONA3Rf_2p-1" value="ФАЙЛ = ВЫПОЛНИТЬ ВОССТАНОВИТЬ(ТЕКУЩИЙ_ИДЕНТИФИКАТОР_ФАЙЛА)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="95" y="770" width="550" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H0dJCFcZJnLONA3Rf_2p-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="H0dJCFcZJnLONA3Rf_2p-2" target="H0dJCFcZJnLONA3Rf_2p-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="H0dJCFcZJnLONA3Rf_2p-2" value="ТЕКУЩИЙ_ИДЕНТИФИКАТОР_ФАЙЛА = СПИСОК_ИДЕНТИФИКАТОРОВ_ФАЙЛОВ[i]" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="85" y="654" width="570" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,7 +1,7 @@
 ---
 title: "Лабораторная работа №9: Определение длин волн спектральных линий с помощью спектрометра. Вар. 2"
 lang: ru-RU
-format: html
+format: pdf
 pdf-engine: xelatex
 mainfont: Times New Roman
 sansfont: Arial
@@ -51,11 +51,11 @@ kable(data,
 library(jsonlite)
 library(knitr)
 
-if (!file.exists("dataR.json")) {
+if (!file.exists("data.json")) {
   stop("Файл 'data.json' не найден!")
 }
 
-data <- fromJSON("dataR.json")
+data <- fromJSON("data.json")
 mercury_lamp <- data$`mercury_lamp`
 mercury_lamp$`average` <- (mercury_lamp$`forword` + mercury_lamp$`reverse`) / 2
 
@@ -250,6 +250,7 @@ kable(
   )
 ```
 
+````{=html}
 <!--
 # Примеры вычислений
 
@@ -263,9 +264,10 @@ result <- a + b
 ```
 
 \begin{align*}
-	\text{По формуле \eqref{eq:n1:1}: } \varphi= \frac{\varphi_1 + \varphi_2}{2} = \text{{ `r result` }}
+    \text{По формуле \eqref{eq:n1:1}: } \varphi= \frac{\varphi_1 + \varphi_2}{2} = \text{{ `r result` }}
 \end{align*}
 -->
+````
 
 # Графики
 

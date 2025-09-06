@@ -6,6 +6,8 @@
 - Build - [build.bat](build.bat)
 - Template
 
+OllyDbg https://backoftut.gitbook.io/intro-cracking-with-ollydbg-2/ch-03#id-3.-flag-p-ili-flag-chyotnosti
+
 ```assembly
 .386
 .model flat

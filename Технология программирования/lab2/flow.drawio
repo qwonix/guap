@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" version="26.1.3">
+  <diagram id="jhk_WncLv0Q6kB-OSIDA" name="Страница — 1">
+    <mxGraphModel dx="1185" dy="610" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-25" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="570" width="550" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="600" width="550" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-7" value="for i = 1 to количество_файлов&lt;div&gt;do&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="111" y="616" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-11" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="640" width="500" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-12" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="640" width="500" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-13" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="680" width="500" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-14" value="ФАЙЛ = ФАЙЛЫ[i]" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="164" y="647" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-15" value="ЧАСТИ_ФАЙЛА = ПОЛУЧИТЬ_ЧАСТИ_ФАЙЛА(ФАЙЛ)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="164" y="690" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-16" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="730" width="500" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-17" value="for j = 1 to КОЛИЧЕСТВО_ЧАСТЕЙ_ФАЙЛА&lt;div&gt;do&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="164" y="740" width="283" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-18" value="" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="200" y="770" width="450" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-19" value="ЧАСТЬ_ФАЙЛА = ЧАСТИ_ФАЙЛА[j]" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="215" y="775" width="310" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-22" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="810" width="450" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-20" value="СЖАТАЯ_ЧАСТЬ = СЖАТЬ(ЧАСТЬ_ФАЙЛА)&amp;nbsp;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="215" y="817" width="390" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-23" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="850" width="450" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-24" value="СОХРАНИТЬ_ФАЙЛ_В_РЕЗЕРВНОЕ_ХРАНИЛИЩЕ(СЖАТАЯ_ЧАСТЬ)" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="215" y="860" width="506" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-26" value="ввод ФАЙЛЫ, КОЛИЧЕСТВО_ФАЙЛОВ" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="111" y="573" width="269" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9iZ9IqGDnLA030-MQXxl-28" value="Text" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="234" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

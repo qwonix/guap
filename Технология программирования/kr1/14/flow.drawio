@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" version="26.2.14">
+  <diagram name="Страница — 1" id="TOUGDW0gZeRKll1DtfSG">
+    <mxGraphModel dx="2066" dy="1065" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-1" value="std::random_device rd;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="100" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-2" value="std::mt19937 gen(rd());" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="140" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-3" value="std::uniform_int_distribution&amp;lt;&amp;gt; dis(0, 9);" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="180" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-4" value="&amp;nbsp;Keys* GeneratedKeys = new Keys;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="220" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-5" value="Keys* Tmp = GeneratedKeys;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="260" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-6" value="for i = 0 to NumOfKeys&lt;div&gt;&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;do&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=middle;align=left;verticalAlign=top;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="90" y="300" width="380" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-8" value="Tmp-&amp;gt;keys[0] = dis(gen);" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="230" y="330" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-10" value="for j = 0 to 6&lt;div&gt;&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;do&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=middle;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="230" y="360" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-9" value="Tmp-&amp;gt;keys[j] = &#39;A&#39; + rand() % 26;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="260" y="390" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-11" value="Tmp-&amp;gt;next = new Keys;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="230" y="450" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-12" value="Tmp = Tmp-&amp;gt;next;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="230" y="490" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-13" value="Keys* MassiveOfSegments = new Keys[NumOfSegments];" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="530" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-14" value="for i = 0 to NumOfSegments&lt;div&gt;&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;do&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=middle;align=left;verticalAlign=top;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="90" y="570" width="380" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-16" value="for j = 0 to 6&lt;div&gt;&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;do&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=middle;align=left;verticalAlign=top;spacingLeft=9;" vertex="1" parent="1">
+          <mxGeometry x="230" y="599" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-17" value="MassiveOfSegments[i].keys[j] = 0;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="260" y="629" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-18" value="MassiveOfSegments[i].numOfH = 0;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="230" y="689" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-19" value="MassiveOfSegments[i].next = NULL;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="230" y="729" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;spacingLeft=20;align=left;" edge="1" parent="1" source="_1wEJHIhVJb9OgYawK2e-20" target="_1wEJHIhVJb9OgYawK2e-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-20" value="Keys* BadKeys = NULL;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="769" width="380" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-21" value="// Вызов функции хеширования" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="810" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-22" value="&amp;nbsp;HashFunction(GeneratedKeys, MassiveOfSegments, BadKeys);" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="850" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-23" value="// Сохранение результатов в файл" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="890" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-24" value="&amp;nbsp;std::ofstream outputFile(&quot;./results.txt&quot;);" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="90" y="930" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-25" value="if&amp;nbsp;outputFile.is_open()&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;then&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="970" width="380" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-27" value="for j = 0 to&amp;nbsp;NumOfSegments&lt;div&gt;&lt;br&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;do&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=middle;align=left;verticalAlign=top;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="130" y="1010" width="340" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-28" value="int numCollisions = MassiveOfSegments[i].numOfH;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="170" y="1040" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_1wEJHIhVJb9OgYawK2e-31" value="outputFile &amp;lt;&amp;lt; i &amp;lt;&amp;lt; &quot;: &quot; &amp;lt;&amp;lt; numCollisions &amp;lt;&amp;lt; std::endl;" style="rounded=0;whiteSpace=wrap;html=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="170" y="1080" width="300" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
