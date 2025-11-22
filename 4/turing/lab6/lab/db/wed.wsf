@@ -23,10 +23,10 @@ applicable agreement for further details.
 VECTOR("D:/GUAP/guap/4/turing/lab6/lab/lab.vwf")
 {
 	ZOOM{
-		ZBEGIN = 0;
-		ZEND = 46100;
-		NUMERATOR = 922;
-		DENOMINATOR = 46100;
+		ZBEGIN = 66240;
+		ZEND = 176640;
+		NUMERATOR = 1104;
+		DENOMINATOR = 110400;
 		TOP_INDEX = 0;
 	}
 	CLOCK{
@@ -99,9 +99,9 @@ VECTOR("D:/GUAP/guap/4/turing/lab6/lab/db/lab.sim.cvwf")
 {
 	ZOOM{
 		ZBEGIN = 0;
-		ZEND = 46100;
-		NUMERATOR = 922;
-		DENOMINATOR = 46100;
+		ZEND = 123400;
+		NUMERATOR = 1234;
+		DENOMINATOR = 123400;
 		TOP_INDEX = 0;
 	}
 	CLOCK{
