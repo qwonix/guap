@@ -24,9 +24,21 @@ HEADER
 {
 	VERSION = 1;
 	TIME_UNIT = ns;
+	PRINT_OPTIONS = "Print_options_version 6\
+range_start 0ps\
+range_end 220.0us\
+width 1\
+names_percentage 25\
+comments 1\
+grid_lines 1\
+time_bars 1\
+name_every_page 0\
+expand_groups 0\
+print_all 1\
+print_row_height 100";
 	DATA_OFFSET = 0.0;
-	DATA_DURATION = 110000.0;
-	SIMULATION_TIME = 0.0;
+	DATA_DURATION = 220000.0;
+	SIMULATION_TIME = 220000.0;
 	GRID_PHASE = 0.0;
 	GRID_PERIOD = 5.0;
 	GRID_DUTY_CYCLE = 50;
@@ -82,6 +94,16 @@ SIGNAL("y2")
 	PARENT = "";
 }
 
+GROUP("x")
+{
+	MEMBERS = "x1", "x2";
+}
+
+GROUP("y")
+{
+	MEMBERS = "y1", "y2";
+}
+
 TRANSITION_LIST("c")
 {
 	NODE
@@ -89,23 +111,9 @@ TRANSITION_LIST("c")
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 4;
-			LEVEL 0 FOR 2.5;
-			LEVEL 1 FOR 2.5;
-		}
-		NODE
-		{
-			REPEAT = 1;
-			LEVEL 0 FOR 2.5;
-			LEVEL 1 FOR 2.5;
-		}
-		LEVEL 0 FOR 2.5;
-		LEVEL 1 FOR 2.5;
-		NODE
-		{
-			REPEAT = 21994;
-			LEVEL 0 FOR 2.5;
-			LEVEL 1 FOR 2.5;
+			REPEAT = 22000;
+			LEVEL 0 FOR 5.0;
+			LEVEL 1 FOR 5.0;
 		}
 	}
 }
@@ -116,6 +124,20 @@ TRANSITION_LIST("x1")
 	{
 		REPEAT = 1;
 		LEVEL 0 FOR 20.0;
+		NODE
+		{
+			REPEAT = 1;
+			LEVEL 1 FOR 15.0;
+			LEVEL 0 FOR 15.0;
+			LEVEL 1 FOR 5.0;
+			LEVEL 0 FOR 5.0;
+			LEVEL 1 FOR 5.0;
+			LEVEL 0 FOR 5.0;
+			LEVEL 1 FOR 10.0;
+			LEVEL 0 FOR 10.0;
+			LEVEL 1 FOR 15.0;
+			LEVEL 0 FOR 109915.0;
+		}
 		LEVEL 1 FOR 15.0;
 		LEVEL 0 FOR 15.0;
 		LEVEL 1 FOR 5.0;
@@ -135,6 +157,18 @@ TRANSITION_LIST("x2")
 	{
 		REPEAT = 1;
 		LEVEL 0 FOR 45.0;
+		NODE
+		{
+			REPEAT = 1;
+			LEVEL 1 FOR 5.0;
+			LEVEL 0 FOR 15.0;
+			LEVEL 1 FOR 5.0;
+			LEVEL 0 FOR 15.0;
+			LEVEL 1 FOR 5.0;
+			LEVEL 0 FOR 15.0;
+			LEVEL 1 FOR 5.0;
+			LEVEL 0 FOR 109935.0;
+		}
 		LEVEL 1 FOR 5.0;
 		LEVEL 0 FOR 15.0;
 		LEVEL 1 FOR 5.0;
@@ -151,7 +185,25 @@ TRANSITION_LIST("y1")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 110000.0;
+		LEVEL 0 FOR 15.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 100.0;
+		NODE
+		{
+			REPEAT = 3663;
+			LEVEL 1 FOR 10.0;
+			LEVEL 0 FOR 20.0;
+		}
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 100.0;
+		NODE
+		{
+			REPEAT = 3662;
+			LEVEL 1 FOR 10.0;
+			LEVEL 0 FOR 20.0;
+		}
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 5.0;
 	}
 }
 
@@ -160,7 +212,15 @@ TRANSITION_LIST("y2")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL X FOR 110000.0;
+		LEVEL 0 FOR 75.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 10.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 109970.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 10.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 109895.0;
 	}
 }
 
@@ -175,43 +235,67 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "x1";
+	CHANNEL = "x";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = ASCII;
+	RADIX = Binary;
 	TREE_INDEX = 1;
 	TREE_LEVEL = 0;
+	CHILDREN = 2, 3;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "x1";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 2;
+	TREE_LEVEL = 1;
+	PARENT = 1;
 }
 
 DISPLAY_LINE
 {
 	CHANNEL = "x2";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = ASCII;
-	TREE_INDEX = 2;
+	RADIX = Binary;
+	TREE_INDEX = 3;
+	TREE_LEVEL = 1;
+	PARENT = 1;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "y";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 4;
 	TREE_LEVEL = 0;
+	CHILDREN = 5, 6;
 }
 
 DISPLAY_LINE
 {
 	CHANNEL = "y1";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = ASCII;
-	TREE_INDEX = 3;
-	TREE_LEVEL = 0;
+	RADIX = Binary;
+	TREE_INDEX = 5;
+	TREE_LEVEL = 1;
+	PARENT = 4;
 }
 
 DISPLAY_LINE
 {
 	CHANNEL = "y2";
 	EXPAND_STATUS = COLLAPSED;
-	RADIX = ASCII;
-	TREE_INDEX = 4;
-	TREE_LEVEL = 0;
+	RADIX = Binary;
+	TREE_INDEX = 6;
+	TREE_LEVEL = 1;
+	PARENT = 4;
 }
 
 TIME_BAR
 {
-	TIME = 20000;
+	TIME = 0;
 	MASTER = TRUE;
 }
 ;

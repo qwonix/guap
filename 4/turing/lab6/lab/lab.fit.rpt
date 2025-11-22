@@ -1,5 +1,5 @@
 Fitter report for lab
-Sat Nov 22 01:59:46 2025
+Sat Nov 22 21:24:36 2025
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -65,7 +65,7 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------+
 ; Fitter Summary                                                               ;
 +-------------------------------+----------------------------------------------+
-; Fitter Status                 ; Successful - Sat Nov 22 01:59:46 2025        ;
+; Fitter Status                 ; Successful - Sat Nov 22 21:24:36 2025        ;
 ; Quartus II Version            ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
 ; Revision Name                 ; lab                                          ;
 ; Top-level Entity Name         ; lab                                          ;
@@ -155,8 +155,8 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------+-------------------------------+
 ; y1       ; Incomplete set of assignments ;
 ; y2       ; Incomplete set of assignments ;
-; x2       ; Incomplete set of assignments ;
 ; x1       ; Incomplete set of assignments ;
+; x2       ; Incomplete set of assignments ;
 ; c        ; Incomplete set of assignments ;
 +----------+-------------------------------+
 
@@ -268,8 +268,8 @@ The pin-out file can be found in D:/GUAP/guap/4/turing/lab6/lab/lab.pin.
 ; Maximum fan-out                                                                   ; 5                    ;
 ; Highest non-global fan-out signal                                                 ; inst                 ;
 ; Highest non-global fan-out                                                        ; 5                    ;
-; Total fan-out                                                                     ; 28                   ;
-; Average fan-out                                                                   ; 1.87                 ;
+; Total fan-out                                                                     ; 29                   ;
+; Average fan-out                                                                   ; 1.93                 ;
 +-----------------------------------------------------------------------------------+----------------------+
 *  Register count does not include registers inside block RAM or DSP blocks.
 
@@ -281,8 +281,8 @@ The pin-out file can be found in D:/GUAP/guap/4/turing/lab6/lab/lab.pin.
 ; Name ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Cell number ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Power Up High ; PCI I/O Enabled ; Bus Hold ; Weak Pull Up ; I/O Standard ; Termination ; Location assigned by ;
 +------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
 ; c    ; N20   ; 1        ; 0            ; 10           ; 1           ; 1                     ; 0                  ; yes    ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; Fitter               ;
-; x1   ; AA12  ; 8        ; 18           ; 0            ; 1           ; 3                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; Fitter               ;
-; x2   ; C13   ; 3        ; 18           ; 27           ; 1           ; 3                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; Fitter               ;
+; x1   ; C13   ; 3        ; 18           ; 27           ; 1           ; 3                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; Fitter               ;
+; x2   ; AA12  ; 8        ; 18           ; 0            ; 1           ; 3                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; Fitter               ;
 +------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
 
 
@@ -352,7 +352,7 @@ The pin-out file can be found in D:/GUAP/guap/4/turing/lab6/lab/lab.pin.
 ; AA9      ; 144        ; 10       ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; AA10     ; 147        ; 10       ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; AA11     ; 141        ; 7        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; AA12     ; 138        ; 8        ; x1                       ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; AA12     ; 138        ; 8        ; x2                       ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
 ; AA13     ; 137        ; 8        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; AA14     ;            ; 8        ; VREFB8                   ; power  ;              ;         ; --         ;                 ; --       ; --           ;
 ; AA15     ; 127        ; 8        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
@@ -419,7 +419,7 @@ The pin-out file can be found in D:/GUAP/guap/4/turing/lab6/lab/lab.pin.
 ; C10      ; 324        ; 9        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; C11      ; 325        ; 4        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; C12      ; 326        ; 4        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; C13      ; 330        ; 3        ; x2                       ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; C13      ; 330        ; 3        ; x1                       ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
 ; C14      ; 354        ; 3        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; C15      ; 342        ; 3        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; C16      ; 344        ; 3        ; GND*                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
@@ -862,8 +862,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +------+----------+---------------+---------------+-----------------------+-----+-----------+---------+----------+------------+
 ; y1   ; Output   ; --            ; --            ; --                    ; --  ; (0) 52 ps ; --      ; --       ; --         ;
 ; y2   ; Output   ; --            ; --            ; --                    ; --  ; (0) 52 ps ; --      ; --       ; --         ;
-; x2   ; Input    ; (7) 2996 ps   ; (7) 2996 ps   ; --                    ; --  ; --        ; --      ; --       ; --         ;
 ; x1   ; Input    ; (7) 2996 ps   ; (7) 2996 ps   ; --                    ; --  ; --        ; --      ; --       ; --         ;
+; x2   ; Input    ; (7) 2996 ps   ; (7) 2996 ps   ; --                    ; --  ; --        ; --      ; --       ; --         ;
 ; c    ; Input    ; (0) 206 ps    ; (0) 206 ps    ; --                    ; --  ; --        ; --      ; --       ; --         ;
 +------+----------+---------------+---------------+-----------------------+-----+-----------+---------+----------+------------+
 
@@ -873,14 +873,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------+-------------------+---------+
 ; Source Pin / Fanout ; Pad To Core Index ; Setting ;
 +---------------------+-------------------+---------+
-; x2                  ;                   ;         ;
-;      - inst20       ; 1                 ; 7       ;
-;      - inst14~0     ; 1                 ; 7       ;
-;      - inst19~0     ; 1                 ; 7       ;
 ; x1                  ;                   ;         ;
-;      - inst20       ; 0                 ; 7       ;
-;      - inst14~0     ; 0                 ; 7       ;
-;      - inst19~0     ; 0                 ; 7       ;
+;      - inst33~0     ; 0                 ; 7       ;
+;      - inst36~0     ; 0                 ; 7       ;
+;      - inst39       ; 0                 ; 7       ;
+; x2                  ;                   ;         ;
+;      - inst33~0     ; 0                 ; 7       ;
+;      - inst36~0     ; 0                 ; 7       ;
+;      - inst39       ; 0                 ; 7       ;
 ; c                   ;                   ;         ;
 +---------------------+-------------------+---------+
 
@@ -908,16 +908,16 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------+----------------------+
 ; Name     ; Fan-Out              ;
 +----------+----------------------+
+; inst5    ; 5                    ;
 ; inst     ; 5                    ;
-; inst5    ; 4                    ;
 ; inst6    ; 4                    ;
-; x1       ; 3                    ;
 ; x2       ; 3                    ;
-; inst19~0 ; 1                    ;
-; inst14~0 ; 1                    ;
-; inst20   ; 1                    ;
-; inst28   ; 1                    ;
-; inst27~0 ; 1                    ;
+; x1       ; 3                    ;
+; inst39   ; 1                    ;
+; inst36~0 ; 1                    ;
+; inst33~0 ; 1                    ;
+; inst43   ; 1                    ;
+; inst41   ; 1                    ;
 +----------+----------------------+
 
 
@@ -1079,8 +1079,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Total Fail         ; 0            ; 0            ; 0            ; 0            ; 0            ; 0         ; 0            ; 0            ; 0         ; 0         ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0            ; 0         ; 0            ; 0            ; 0            ; 0            ; 0            ;
 ; y1                 ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; y2                 ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
-; x2                 ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; x1                 ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
+; x2                 ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 ; c                  ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Pass      ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Pass      ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ; Inapplicable ;
 +--------------------+--------------+--------------+--------------+--------------+--------------+-----------+--------------+--------------+-----------+-----------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+-----------+--------------+--------------+--------------+--------------+--------------+
 
@@ -1132,7 +1132,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II Fitter
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Sat Nov 22 01:59:44 2025
+    Info: Processing started: Sat Nov 22 21:24:34 2025
 Info: Command: quartus_fit --read_settings_files=off --write_settings_files=off lab -c lab
 Info: Automatically selected device EP2S15F484C3 for design lab
 Info: Fitter is performing an Auto Fit compilation, which may decrease Fitter effort to reduce compilation time
@@ -1143,8 +1143,8 @@ Info: Fitter converted 1 user pins into dedicated programming pins
 Critical Warning: No exact pin location assignment(s) for 5 pins of 5 total pins
     Info: Pin y1 not assigned to an exact location on the device
     Info: Pin y2 not assigned to an exact location on the device
-    Info: Pin x2 not assigned to an exact location on the device
     Info: Pin x1 not assigned to an exact location on the device
+    Info: Pin x2 not assigned to an exact location on the device
     Info: Pin c not assigned to an exact location on the device
 Warning: Some pins have incomplete I/O assignments. Refer to the I/O Assignment Warnings report for details
 Info: Timing-driven compilation is using the Classic Timing Analyzer
@@ -1175,16 +1175,16 @@ Info: I/O bank details before I/O pin placement
         Info: I/O bank number 8 does not use VREF pins and has undetermined VCCIO pins. 0 total pin(s) used --  43 pins available
         Info: I/O bank number 9 does not use VREF pins and has undetermined VCCIO pins. 0 total pin(s) used --  6 pins available
         Info: I/O bank number 10 does not use VREF pins and has undetermined VCCIO pins. 0 total pin(s) used --  6 pins available
-Info: Fitter preparation operations ending: elapsed time is 00:00:01
+Info: Fitter preparation operations ending: elapsed time is 00:00:00
 Info: Fitter placement preparation operations beginning
 Info: Fitter placement preparation operations ending: elapsed time is 00:00:00
 Info: Fitter placement operations beginning
 Info: Fitter placement was successful
 Info: Fitter placement operations ending: elapsed time is 00:00:00
 Info: Estimated most critical path is register to register delay of 0.660 ns
-    Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LAB_X18_Y19; Fanout = 5; REG Node = 'inst'
-    Info: 2: + IC(0.148 ns) + CELL(0.357 ns) = 0.505 ns; Loc. = LAB_X18_Y19; Fanout = 1; COMB Node = 'inst14~0'
-    Info: 3: + IC(0.000 ns) + CELL(0.155 ns) = 0.660 ns; Loc. = LAB_X18_Y19; Fanout = 5; REG Node = 'inst'
+    Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LAB_X18_Y19; Fanout = 5; REG Node = 'inst5'
+    Info: 2: + IC(0.148 ns) + CELL(0.357 ns) = 0.505 ns; Loc. = LAB_X18_Y19; Fanout = 1; COMB Node = 'inst36~0'
+    Info: 3: + IC(0.000 ns) + CELL(0.155 ns) = 0.660 ns; Loc. = LAB_X18_Y19; Fanout = 5; REG Node = 'inst5'
     Info: Total cell delay = 0.512 ns ( 77.58 % )
     Info: Total interconnect delay = 0.148 ns ( 22.42 % )
 Info: Fitter routing operations beginning
@@ -1202,7 +1202,7 @@ Info: Delay annotation completed successfully
 Warning: The Reserve All Unused Pins setting has not been specified, and will default to 'As output driving ground'.
 Info: Quartus II Fitter was successful. 0 errors, 5 warnings
     Info: Peak virtual memory: 263 megabytes
-    Info: Processing ended: Sat Nov 22 01:59:46 2025
+    Info: Processing ended: Sat Nov 22 21:24:36 2025
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:02
 
