@@ -1,19 +1,29 @@
 @startuml
-' Диаграмма классов: Облачное хранилище
+' Диаграмма классов: Облачное хранилище (FileChunk удалён)
 
-' ---------- Классы и интерфейсы ----------
+' ---------- Вспомогательные типы ----------
+class FileMetadata {
+  - contentType: String
+  - tags: List<String>
+  + getSize(): long
+}
+
+class ScanResult {
+  - infected: boolean
+  - threats: List<String>
+  + isClean(): boolean
+}
+
+' ---------- Интерфейсы и основные классы ----------
 interface IVirusScanner {
   + scan(file: File) : ScanResult
 }
 
 class User {
-  - userId: UUID
+  - id: UUID
   - email: String
   - name: String
   - passwordHash: String
-  + authenticate(password: String): boolean
-  + requestUpload(fileMeta: FileMetadata): UUID
-  + requestDownload(fileId: UUID): File
 }
 
 class Admin {
@@ -27,6 +37,7 @@ class File {
   - size: long
   - owner: User
   - createdAt: Date
+  - versions: List<FileVersion>
   + getMetadata(): FileMetadata
   + addVersion(v: FileVersion): void
   + markSafe(): void
@@ -36,16 +47,8 @@ class FileVersion {
   - versionId: int
   - createdAt: Date
   - checksum: String
-  - chunks: List<FileChunk>
-  + assemble(): File
-  + validateChecksum(): boolean
-}
-
-class FileChunk {
-  - index: int
   - data: byte[]
-  - checksum: String
-  + verifyChecksum(): boolean
+  + getData(): byte[]
 }
 
 class Folder {
@@ -57,11 +60,10 @@ class Folder {
 }
 
 class StorageQuota {
-  - userId: UUID
   - used: long
   - limit: long
   + check(size: long): boolean
-  + reserve(size: long): boolean
+  + reserve(size: long): void
   + release(size: long): void
 }
 
@@ -73,29 +75,20 @@ class SharingLink {
   + revoke(): void
 }
 
-class Journal {
-  - entryId: UUID
-  - actorId: UUID
-  - action: String
-  - timestamp: Date
-  + record(event: String): void
-}
-
 class FileController {
   - storage: StorageService
   - journal: Journal
-  + uploadFile(user: User, meta: FileMetadata): UUID
-  + uploadChunk(fileId: UUID, chunk: FileChunk): boolean
+  - virusScanner: IVirusScanner
+  + uploadFile(user: User, version: FileMetadata): UUID
   + downloadFile(user: User, fileId: UUID): File
-  + log(j: Journal, msg: String): void
+  + deleteFile(user: User, fileId: UUID): boolean
 }
 
 class StorageService {
   - quotaStore: Map<UUID, StorageQuota>
-  - files: Map<UUID, File>
   + checkQuota(userId: UUID, size: long): boolean
-  + saveChunk(fileId: UUID, chunk: FileChunk): boolean
-  + assembleFile(fileId: UUID): File
+  + saveFileVersion(fileId: UUID, version: FileVersion): boolean
+  + getFile(fileId: UUID): File
   + deleteFile(fileId: UUID): void
 }
 
@@ -104,65 +97,33 @@ class VirusScanner {
   + scan(file: File): ScanResult
 }
 
-class Converter {
-  + convert(file: File, format: String): File
-}
-
-' ---------- Реализации, композиции, агрегации, ассоциации, зависимости ----------
-' реализация интерфейса
+' ---------- Отношения ----------
 IVirusScanner <|.. VirusScanner
+IVirusScanner *-- ScanResult
 
-' композиция: File содержит версии; версии существуют только в контексте File
-File "1" *-- "1.*" FileVersion : versions
+' композиция: File содержит версии (version — часть File)
+StorageService "1" *-- "0.*" StorageQuota
 
-' композиция: FileVersion содержит чанки (части) — часть не существует без версии
-FileVersion "1" *-- "1.*" FileChunk : chunks
+' композиция: File содержит версии (version — часть File)
+File "1" *-- "0.*" FileVersion
 
-' агрегация: Folder агрегирует Files (файлы могут существовать вне папки)
-Folder "1" o-- "0.*" File : files
+' агрегация: Folder агрегирует File
+Folder "1" o-- "0.*" File
 
-' ассоциация: File имеет владельца User (поле owner)
-User "1" -- "0.*" File : owns
+' ассоциация: User владеет File (поле owner в File)
+User "1" -- "0.*" File
 
-' зависимость: FileController зависит от Journal (метод принимает Journal как параметр)
-FileController ..> Journal : uses
-
-' ассоциация/зависимость между контроллером и сервисом хранения
-FileController "1" -- "1" StorageService : delegates_to
-
-' ассоциация: StorageService использует StorageQuota
-StorageService "1" -- "0.*" StorageQuota : quotas
-
-' реализация/взаимодействие: FileController использует IVirusScanner (через зависимость)
+' ассоциация/зависимость/использование
+FileController ..> StorageService
 FileController ..> IVirusScanner
+FileController *-- FileMetadata
 
-' ассоциация: File <-> SharingLink (один файл может иметь 0..* ссылок)
-File "1" -- "0.*" SharingLink : shares
 
-' Converter ассоциирован с File (использует/создаёт новые версии)
-Converter --> File : produces
+' File и SharingLink
+File "1" -- "0.*" SharingLink
 
-' Journal связь с User (логирование акторов)
-Journal "0.*" -- "0.1" User : actor
-
-' дополнительные отношения для полноты
-StorageService --> File : stores
-VirusScanner --> File : scans
-
-' ---------- Примечания ----------
-note right of FileVersion
-  FileVersion — композиция с File:
-  версии существуют только внутри File.
-end note
-
-note left of Folder
-  Folder — агрегирует File:
-  файлы могут существовать независимо от папки.
-end note
-
-note bottom of FileController
-  FileController: orchestrator операций загрузки/скачивания.
-  Имеет зависимость на Journal и IVirusScanner.
-end note
+' сервисы работают с File
+StorageService "1" -- "0.*" File
+VirusScanner ..> File
 
 @enduml
