@@ -1,0 +1,168 @@
+@startuml
+' Диаграмма классов: Облачное хранилище
+
+' ---------- Классы и интерфейсы ----------
+interface IVirusScanner {
+  + scan(file: File) : ScanResult
+}
+
+class User {
+  - userId: UUID
+  - email: String
+  - name: String
+  - passwordHash: String
+  + authenticate(password: String): boolean
+  + requestUpload(fileMeta: FileMetadata): UUID
+  + requestDownload(fileId: UUID): File
+}
+
+class Admin {
+  + manageQuota(userId: UUID, newLimit: long): void
+}
+Admin --|> User
+
+class File {
+  - fileId: UUID
+  - name: String
+  - size: long
+  - owner: User
+  - createdAt: Date
+  + getMetadata(): FileMetadata
+  + addVersion(v: FileVersion): void
+  + markSafe(): void
+}
+
+class FileVersion {
+  - versionId: int
+  - createdAt: Date
+  - checksum: String
+  - chunks: List<FileChunk>
+  + assemble(): File
+  + validateChecksum(): boolean
+}
+
+class FileChunk {
+  - index: int
+  - data: byte[]
+  - checksum: String
+  + verifyChecksum(): boolean
+}
+
+class Folder {
+  - folderId: UUID
+  - name: String
+  - files: List<File>
+  + addFile(f: File): void
+  + removeFile(f: File): void
+}
+
+class StorageQuota {
+  - userId: UUID
+  - used: long
+  - limit: long
+  + check(size: long): boolean
+  + reserve(size: long): boolean
+  + release(size: long): void
+}
+
+class SharingLink {
+  - url: String
+  - expiresAt: Date
+  - file: File
+  + isValid(): boolean
+  + revoke(): void
+}
+
+class Journal {
+  - entryId: UUID
+  - actorId: UUID
+  - action: String
+  - timestamp: Date
+  + record(event: String): void
+}
+
+class FileController {
+  - storage: StorageService
+  - journal: Journal
+  + uploadFile(user: User, meta: FileMetadata): UUID
+  + uploadChunk(fileId: UUID, chunk: FileChunk): boolean
+  + downloadFile(user: User, fileId: UUID): File
+  + log(j: Journal, msg: String): void
+}
+
+class StorageService {
+  - quotaStore: Map<UUID, StorageQuota>
+  - files: Map<UUID, File>
+  + checkQuota(userId: UUID, size: long): boolean
+  + saveChunk(fileId: UUID, chunk: FileChunk): boolean
+  + assembleFile(fileId: UUID): File
+  + deleteFile(fileId: UUID): void
+}
+
+class VirusScanner {
+  - engineVersion: String
+  + scan(file: File): ScanResult
+}
+
+class Converter {
+  + convert(file: File, format: String): File
+}
+
+' ---------- Реализации, композиции, агрегации, ассоциации, зависимости ----------
+' реализация интерфейса
+IVirusScanner <|.. VirusScanner
+
+' композиция: File содержит версии; версии существуют только в контексте File
+File "1" *-- "1.*" FileVersion : versions
+
+' композиция: FileVersion содержит чанки (части) — часть не существует без версии
+FileVersion "1" *-- "1.*" FileChunk : chunks
+
+' агрегация: Folder агрегирует Files (файлы могут существовать вне папки)
+Folder "1" o-- "0.*" File : files
+
+' ассоциация: File имеет владельца User (поле owner)
+User "1" -- "0.*" File : owns
+
+' зависимость: FileController зависит от Journal (метод принимает Journal как параметр)
+FileController ..> Journal : uses
+
+' ассоциация/зависимость между контроллером и сервисом хранения
+FileController "1" -- "1" StorageService : delegates_to
+
+' ассоциация: StorageService использует StorageQuota
+StorageService "1" -- "0.*" StorageQuota : quotas
+
+' реализация/взаимодействие: FileController использует IVirusScanner (через зависимость)
+FileController ..> IVirusScanner
+
+' ассоциация: File <-> SharingLink (один файл может иметь 0..* ссылок)
+File "1" -- "0.*" SharingLink : shares
+
+' Converter ассоциирован с File (использует/создаёт новые версии)
+Converter --> File : produces
+
+' Journal связь с User (логирование акторов)
+Journal "0.*" -- "0.1" User : actor
+
+' дополнительные отношения для полноты
+StorageService --> File : stores
+VirusScanner --> File : scans
+
+' ---------- Примечания ----------
+note right of FileVersion
+  FileVersion — композиция с File:
+  версии существуют только внутри File.
+end note
+
+note left of Folder
+  Folder — агрегирует File:
+  файлы могут существовать независимо от папки.
+end note
+
+note bottom of FileController
+  FileController: orchestrator операций загрузки/скачивания.
+  Имеет зависимость на Journal и IVirusScanner.
+end note
+
+@enduml
