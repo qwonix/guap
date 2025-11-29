@@ -44,19 +44,18 @@ class File {
 }
 
 class FileVersion {
-  - versionId: int
+  - versionNumber: int
   - createdAt: Date
   - checksum: String
   - data: byte[]
-  + getData(): byte[]
 }
 
 class Folder {
   - folderId: UUID
   - name: String
   - files: List<File>
-  + addFile(f: File): void
-  + removeFile(f: File): void
+  + addFile(file: File): void
+  + removeFile(fileId: UUID): void
 }
 
 class StorageQuota {
@@ -77,11 +76,10 @@ class SharingLink {
 
 class FileController {
   - storage: StorageService
-  - journal: Journal
   - virusScanner: IVirusScanner
-  + uploadFile(user: User, version: FileMetadata): UUID
-  + downloadFile(user: User, fileId: UUID): File
-  + deleteFile(user: User, fileId: UUID): boolean
+  + uploadFile(userId: UUID, version: FileMetadata): UUID
+  + downloadFile(userId: UUID, fileId: UUID): File
+  + deleteFile(userId: UUID, fileId: UUID): boolean
 }
 
 class StorageService {
