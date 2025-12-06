@@ -2154,11 +2154,6 @@ applicable agreement for further details.
 	(pt 448 784)
 )
 (connector
-	(text "nQ1" (rect 696 496 716 508)(font "Arial" ))
-	(pt 736 512)
-	(pt 688 512)
-)
-(connector
 	(text "nQ3" (rect 696 504 716 516)(font "Arial" ))
 	(pt 736 520)
 	(pt 688 520)
@@ -2327,5 +2322,10 @@ applicable agreement for further details.
 (connector
 	(pt 432 -184)
 	(pt 504 -184)
+)
+(connector
+	(text "nQ2" (rect 696 496 716 508)(font "Arial" ))
+	(pt 736 512)
+	(pt 688 512)
 )
 (junction (pt 504 -248))

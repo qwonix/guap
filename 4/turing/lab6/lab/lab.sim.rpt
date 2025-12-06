@@ -1,5 +1,5 @@
 Simulator report for lab
-Sat Nov 22 23:47:16 2025
+Tue Dec 02 20:08:11 2025
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -45,9 +45,9 @@ applicable agreement for further details.
 +-----------------------------+--------------+
 ; Simulation Start Time       ; 0 ps         ;
 ; Simulation End Time         ; 220.0 us     ;
-; Simulation Netlist Size     ; 21 nodes     ;
-; Simulation Coverage         ;      90.48 % ;
-; Total Number of Transitions ; 234728       ;
+; Simulation Netlist Size     ; 23 nodes     ;
+; Simulation Coverage         ;     100.00 % ;
+; Total Number of Transitions ; 418063       ;
 ; Simulation Breakpoints      ; 0            ;
 ; Family                      ; Stratix II   ;
 +-----------------------------+--------------+
@@ -94,13 +94,13 @@ Please use Quartus II to view the waveform report data.
 +-----------------------------------------------------+--------------+
 ; Type                                                ; Value        ;
 +-----------------------------------------------------+--------------+
-; Total coverage as a percentage                      ;      90.48 % ;
-; Total nodes checked                                 ; 21           ;
-; Total output ports checked                          ; 21           ;
-; Total output ports with complete 1/0-value coverage ; 19           ;
-; Total output ports with no 1/0-value coverage       ; 2            ;
-; Total output ports with no 1-value coverage         ; 2            ;
-; Total output ports with no 0-value coverage         ; 2            ;
+; Total coverage as a percentage                      ;     100.00 % ;
+; Total nodes checked                                 ; 23           ;
+; Total output ports checked                          ; 23           ;
+; Total output ports with complete 1/0-value coverage ; 23           ;
+; Total output ports with no 1/0-value coverage       ; 0            ;
+; Total output ports with no 1-value coverage         ; 0            ;
+; Total output ports with no 0-value coverage         ; 0            ;
 +-----------------------------------------------------+--------------+
 
 
@@ -111,6 +111,7 @@ The following table displays output ports that toggle between 1 and 0 during sim
 ; Node Name   ; Output Port Name ; Output Port Type ;
 +-------------+------------------+------------------+
 ; |lab|y1     ; |lab|y1          ; pin_out          ;
+; |lab|inst42 ; |lab|inst42      ; out0             ;
 ; |lab|inst41 ; |lab|inst41      ; out0             ;
 ; |lab|inst5  ; |lab|inst5       ; regout           ;
 ; |lab|c      ; |lab|c           ; out              ;
@@ -120,38 +121,35 @@ The following table displays output ports that toggle between 1 and 0 during sim
 ; |lab|inst39 ; |lab|inst39      ; out0             ;
 ; |lab|inst38 ; |lab|inst38      ; out0             ;
 ; |lab|x2     ; |lab|x2          ; out              ;
+; |lab|inst37 ; |lab|inst37      ; out0             ;
 ; |lab|x1     ; |lab|x1          ; out              ;
 ; |lab|inst   ; |lab|inst        ; regout           ;
 ; |lab|inst1  ; |lab|inst1       ; out0             ;
 ; |lab|inst7  ; |lab|inst7       ; out0             ;
+; |lab|inst31 ; |lab|inst31      ; out0             ;
 ; |lab|inst32 ; |lab|inst32      ; out0             ;
 ; |lab|inst30 ; |lab|inst30      ; out0             ;
 ; |lab|inst34 ; |lab|inst34      ; out0             ;
+; |lab|inst40 ; |lab|inst40      ; out0             ;
 ; |lab|y2     ; |lab|y2          ; pin_out          ;
 ; |lab|inst43 ; |lab|inst43      ; out0             ;
 +-------------+------------------+------------------+
 
 
 The following table displays output ports that do not toggle to 1 during simulation.
-+---------------------------------------------------+
-; Missing 1-Value Coverage                          ;
-+-------------+------------------+------------------+
-; Node Name   ; Output Port Name ; Output Port Type ;
-+-------------+------------------+------------------+
-; |lab|inst37 ; |lab|inst37      ; out0             ;
-; |lab|inst31 ; |lab|inst31      ; out0             ;
-+-------------+------------------+------------------+
++-------------------------------------------------+
+; Missing 1-Value Coverage                        ;
++-----------+------------------+------------------+
+; Node Name ; Output Port Name ; Output Port Type ;
++-----------+------------------+------------------+
 
 
 The following table displays output ports that do not toggle to 0 during simulation.
-+---------------------------------------------------+
-; Missing 0-Value Coverage                          ;
-+-------------+------------------+------------------+
-; Node Name   ; Output Port Name ; Output Port Type ;
-+-------------+------------------+------------------+
-; |lab|inst37 ; |lab|inst37      ; out0             ;
-; |lab|inst31 ; |lab|inst31      ; out0             ;
-+-------------+------------------+------------------+
++-------------------------------------------------+
+; Missing 0-Value Coverage                        ;
++-----------+------------------+------------------+
+; Node Name ; Output Port Name ; Output Port Type ;
++-----------+------------------+------------------+
 
 
 +---------------------+
@@ -167,20 +165,20 @@ The following table displays output ports that do not toggle to 0 during simulat
 Info: *******************************************************************
 Info: Running Quartus II Simulator
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Sat Nov 22 23:47:15 2025
+    Info: Processing started: Tue Dec 02 20:08:10 2025
 Info: Command: quartus_sim --read_settings_files=on --write_settings_files=off lab -c lab
-Info: Using vector source file "D:/GUAP/guap/4/turing/lab6/lab/lab.vwf"
+Info: Using vector source file "C:/Users/stud/Documents/Downloads/qwonix guap master 4-turing_lab6/lab/lab.vwf"
 Info: Option to preserve fewer signal transitions to reduce memory requirements is enabled
     Info: Simulation has been partitioned into sub-simulations according to the maximum transition count determined by the engine. Transitions from memory will be flushed out to disk at the end of each sub-simulation to reduce memory requirements.
-Warning: Found clock-sensitive change during active clock edge at time 35.0 ns on register "|lab|inst"
-Warning: Found clock-sensitive change during active clock edge at time 45.0 ns on register "|lab|inst6"
-Warning: Found clock-sensitive change during active clock edge at time 65.0 ns on register "|lab|inst5"
+Warning: Found clock-sensitive change during active clock edge at time 110.04 us on register "|lab|inst"
+Warning: Found clock-sensitive change during active clock edge at time 110.05 us on register "|lab|inst6"
+Warning: Found clock-sensitive change during active clock edge at time 110.07 us on register "|lab|inst5"
 Info: Simulation partitioned into 1 sub-simulations
-Info: Simulation coverage is      90.48 %
-Info: Number of transitions in simulation is 234728
+Info: Simulation coverage is     100.00 %
+Info: Number of transitions in simulation is 418063
 Info: Quartus II Simulator was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 145 megabytes
-    Info: Processing ended: Sat Nov 22 23:47:16 2025
+    Info: Peak virtual memory: 143 megabytes
+    Info: Processing ended: Tue Dec 02 20:08:11 2025
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 
