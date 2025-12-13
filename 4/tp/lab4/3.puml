@@ -1,0 +1,26 @@
+@startuml
+title Sequence diagram — simplified
+
+participant Client
+participant FileCollection
+participant FileIterator
+participant File
+
+' Добавление файлов
+Client -> FileCollection : addFile()
+Client -> FileCollection : addFile()
+Client -> FileCollection : addFile()
+
+' Создание итератора
+Client -> FileCollection : createIterator()
+FileCollection -> FileIterator : create
+
+' Обход файлов
+loop while hasNext()
+    Client -> FileIterator : hasNext()
+    Client -> FileIterator : next()
+    FileIterator -> File : getName()
+    Client -> Client : print file name
+end
+
+@enduml

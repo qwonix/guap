@@ -1,0 +1,38 @@
+@startuml
+
+' ===== Interfaces =====
+interface Iterator {
+  +hasNext() : bool
+  +next()
+}
+
+interface Aggregate {
+  +createIterator() : Iterator
+}
+
+' ===== Concrete classes =====
+class ConcreteAggregate {
+  +createIterator() : Iterator
+}
+
+class ConcreteIterator {
+  -position : int
+  +hasNext() : bool
+  +next()
+}
+
+' ===== Relationships =====
+
+' ConcreteAggregate реализует интерфейс Aggregate
+Aggregate <|.. ConcreteAggregate
+
+' ConcreteIterator реализует интерфейс Iterator
+Iterator <|.. ConcreteIterator
+
+' ConcreteAggregate создаёт ConcreteIterator
+ConcreteAggregate ..> ConcreteIterator : creates
+
+' ConcreteIterator работает с ConcreteAggregate
+ConcreteIterator --> ConcreteAggregate : iterates over
+
+@enduml
