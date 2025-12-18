@@ -1,127 +1,81 @@
 @startuml
-' Диаграмма классов: Облачное хранилище (FileChunk удалён)
+' Диаграмма классов — процесс скачивания файла из облачного хранилища
 
-' ---------- Вспомогательные типы ----------
-class FileMetadata {
-  - contentType: String
-  - tags: List<String>
-  + getSize(): long
-}
-
-class ScanResult {
-  - infected: boolean
-  - threats: List<String>
-  + isClean(): boolean
-}
-
-' ---------- Интерфейсы и основные классы ----------
-interface IVirusScanner {
-  + scan(file: File) : ScanResult
-}
-
-class User {
-  - id: UUID
-  - email: String
-  - name: String
-  - passwordHash: String
+' --- Классы и интерфейс ---
+class Account {
+  - String id
 }
 
 class Admin {
-  + manageQuota(userId: UUID, newLimit: long): void
-}
-Admin --|> User
-
-class File {
-  - fileId: UUID
-  - name: String
-  - size: long
-  - owner: User
-  - createdAt: Date
-  - versions: List<FileVersion>
-  + getMetadata(): FileMetadata
-  + addVersion(v: FileVersion): void
-  + markSafe(): void
+  + manager(User user, CloudStorage storage)
 }
 
-class FileVersion {
-  - versionNumber: int
-  - createdAt: Date
-  - checksum: String
-  - data: byte[]
+class User {
+  - String id
+  - String name
+  + void requestDownload(CloudFile file, DownloadManager manager)
+  + void listFiles(CloudStorage storage) : void
 }
 
-class Folder {
-  - folderId: UUID
-  - name: String
-  - files: List<File>
-  + addFile(file: File): void
-  + removeFile(fileId: UUID): void
+class CloudFile {
+  - String fileName
+  - int fileSize
+  + String getFileInfo() : String
+  + byte[] read() : byte[]
 }
 
-class StorageQuota {
-  - used: long
-  - limit: long
-  + check(size: long): boolean
-  + reserve(size: long): void
-  + release(size: long): void
+class VideoFile {
+  - String resolution
+  + String getResolution() : String
+  + byte[] read() : byte[]
 }
 
-class SharingLink {
-  - url: String
-  - expiresAt: Date
-  - file: File
-  + isValid(): boolean
-  + revoke(): void
+class CloudStorage {
+  - String storageName
+  - List<CloudFile> files
+  + void addFile(CloudFile file)
+  + CloudFile fetchFile(String fileName, User requester) : CloudFile
 }
 
-class FileController {
-  - storage: StorageService
-  - virusScanner: IVirusScanner
-  + uploadFile(userId: UUID, version: FileMetadata): UUID
-  + downloadFile(userId: UUID, fileId: UUID): File
-  + deleteFile(userId: UUID, fileId: UUID): boolean
+class DownloadManager {
+  - List<DownloadTask> tasks
+  - int maxConcurrent
+  + void startDownload(User user, CloudFile file, CloudStorage storage) : void
+  + void cancelDownload(DownloadTask task) : void
 }
 
-class StorageService {
-  - quotaStore: Map<UUID, StorageQuota>
-  + checkQuota(userId: UUID, size: long): boolean
-  + saveFileVersion(fileId: UUID, version: FileVersion): boolean
-  + getFile(fileId: UUID): File
-  + deleteFile(fileId: UUID): void
+class DownloadTask {
+  - int partNumber
+  - String status
+  + void start(CloudFile file, User user) : void
+  + void cancel() : void
+  + byte[] getPartData() : byte[]
 }
 
-class VirusScanner {
-  - engineVersion: String
-  + scan(file: File): ScanResult
-}
+' --- Отношения ---
+' Обобщение (наследование)
+Admin <|- User
+CloudFile <|-- VideoFile
 
-' ---------- Отношения ----------
-IVirusScanner <|.. VirusScanner
-IVirusScanner *-- ScanResult
+' Ассоциация: User использует DownloadManager (метод requestDownload)
+User "1" --> "1" DownloadManager
+User "1" --> "1" CloudStorage
 
-' композиция: File содержит версии (version — часть File)
-StorageService "1" *-- "0.*" StorageQuota
+' Агрегация: CloudStorage агрегирует CloudFile (файлы существуют независимо)
+CloudStorage "1" o-- "*" CloudFile
 
-' композиция: File содержит версии (version — часть File)
-File "1" *-- "0.*" FileVersion
+' Композиция: DownloadManager композитно содержит DownloadTask (жизненный цикл задач внутри менеджера)
+DownloadManager "1" *-- "*" DownloadTask
 
-' агрегация: Folder агрегирует File
-Folder "1" o-- "0.*" File
+' Зависимости (пунктирные): методы используют другие классы в параметрах
+DownloadManager ..> CloudStorage
+DownloadTask ..> CloudFile
 
-' ассоциация: User владеет File (поле owner в File)
-User "1" -- "0.*" File
+' Реализация
+Account <|.. User
 
-' ассоциация/зависимость/использование
-FileController ..> StorageService
-FileController ..> IVirusScanner
-FileController *-- FileMetadata
-
-
-' File и SharingLink
-File "1" -- "0.*" SharingLink
-
-' сервисы работают с File
-StorageService "1" -- "0.*" File
-VirusScanner ..> File
+' Дополнительные для наглядности связей (все классы связаны стрелками)
+CloudFile ..> CloudStorage
+VideoFile ..> DownloadTask
 
 @enduml
