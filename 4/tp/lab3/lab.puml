@@ -2,17 +2,23 @@
 ' Диаграмма классов — процесс скачивания файла из облачного хранилища
 
 ' --- Классы и интерфейс ---
-class Account {
+interface Account {
   - String id
+  - DateTime created
+  - boolean active
 }
 
 class Admin {
   + manager(User user, CloudStorage storage)
+  - boolean superAdmin
 }
 
 class User {
   - String id
   - String name
+  - int age
+  - boolean verified
+  - long quotaBytes
   + void requestDownload(CloudFile file, DownloadManager manager)
   + void listFiles(CloudStorage storage) : void
 }
@@ -20,12 +26,16 @@ class User {
 class CloudFile {
   - String fileName
   - int fileSize
+  - DateTime createdAt
+  - boolean encrypted
   + String getFileInfo() : String
   + byte[] read() : byte[]
 }
 
 class VideoFile {
   - String resolution
+  - long durationSec
+  - int bitrateKbps
   + String getResolution() : String
   + byte[] read() : byte[]
 }
@@ -33,6 +43,8 @@ class VideoFile {
 class CloudStorage {
   - String storageName
   - List<CloudFile> files
+  - long totalSpaceBytes
+  - long usedSpaceBytes
   + void addFile(CloudFile file)
   + CloudFile fetchFile(String fileName, User requester) : CloudFile
 }
@@ -40,6 +52,7 @@ class CloudStorage {
 class DownloadManager {
   - List<DownloadTask> tasks
   - int maxConcurrent
+  - long timeoutMs
   + void startDownload(User user, CloudFile file, CloudStorage storage) : void
   + void cancelDownload(DownloadTask task) : void
 }
@@ -50,6 +63,8 @@ class DownloadTask {
   + void start(CloudFile file, User user) : void
   + void cancel() : void
   + byte[] getPartData() : byte[]
+  - int retryCount
+  - boolean completed
 }
 
 ' --- Отношения ---
@@ -73,9 +88,5 @@ DownloadTask ..> CloudFile
 
 ' Реализация
 Account <|.. User
-
-' Дополнительные для наглядности связей (все классы связаны стрелками)
-CloudFile ..> CloudStorage
-VideoFile ..> DownloadTask
 
 @enduml
