@@ -1,38 +1,48 @@
 @startuml
+skinparam classAttributeIconSize 0
 
-' ===== Interfaces =====
+' ===== Класс предметной области =====
+class File {
+  - name : string
+  + File(n : string)
+  + getName() : string
+}
+
+' ===== Интерфейс Iterator =====
 interface Iterator {
-  +hasNext() : bool
-  +next()
+  + hasNext() : bool
+  + next() : File*
 }
 
+' ===== Интерфейс Aggregate =====
 interface Aggregate {
-  +createIterator() : Iterator
+  + createIterator() : Iterator*
 }
 
-' ===== Concrete classes =====
-class ConcreteAggregate {
-  +createIterator() : Iterator
+' ===== Конкретная коллекция =====
+class FileCollection {
+  - files : vector<File>
+  + addFile(f : File) : void
+  + getSize() : int
+  + getFile(index : int) : File*
+  + createIterator() : Iterator*
 }
 
-class ConcreteIterator {
-  -position : int
-  +hasNext() : bool
-  +next()
+' ===== Конкретный итератор =====
+class FileIterator {
+  - collection : FileCollection*
+  - index : int
+  + FileIterator(c : FileCollection*)
+  + hasNext() : bool
+  + next() : File*
 }
 
-' ===== Relationships =====
+' ===== Наследование / реализация =====
+Aggregate <|.. FileCollection
+Iterator <|.. FileIterator
 
-' ConcreteAggregate реализует интерфейс Aggregate
-Aggregate <|.. ConcreteAggregate
-
-' ConcreteIterator реализует интерфейс Iterator
-Iterator <|.. ConcreteIterator
-
-' ConcreteAggregate создаёт ConcreteIterator
-ConcreteAggregate ..> ConcreteIterator : creates
-
-' ConcreteIterator работает с ConcreteAggregate
-ConcreteIterator --> ConcreteAggregate : iterates over
+' ===== Ассоциации =====
+FileCollection "1" o-- "*" File : contains
+FileIterator --> FileCollection : iterates
 
 @enduml
