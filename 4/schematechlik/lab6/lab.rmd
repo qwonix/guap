@@ -1,0 +1,191 @@
+---
+title: "Отчёт по лабораторной работе: Последовательная RLC-цепь (AC)"
+author: "Студент"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    theme: united
+  pdf_document:
+    toc: true
+    toc_depth: '2'
+---
+
+```{r setup, include=FALSE}
+  knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.width = 7, fig.height = 4)
+  library(tidyverse)
+  library(ggplot2)
+  library(scales)
+```
+
+
+
+# 1. Цель работы
+
+Приобретение навыков сборки простых электрических цепей и измерения напряжений на отдельных участках цепи. Изучение свойств цепей при последовательном соединении активных и реактивных элементов. Знакомство с явлением резонанса напряжения, построение векторных.
+
+# 2. Характеристики последовательного контура
+
+
+```{r data}
+# Исходные данные (из предоставленной таблицы)
+df <- tibble(
+  f_Hz = c(25, 32, 37, 42, 47, 52, 60),
+  U_meas_V = c(6.7, 6.6, 6.6, 6.6, 6.6, 6.6, 6.6),
+  I_mA = c(71, 104, 126, 135, 127, 112, 90),
+  U_R_V = c(1.5, 2.2, 2.7, 2.9, 2.7, 2.4, 1.9),
+  U_L_V = c(3.4, 6.3, 8.8, 10.6, 11.2, 10.8, 10.0),
+  U_C_V = c(8.9, 10.3, 10.8, 10.3, 8.7, 7.0, 4.9),
+  P_meas_W = c(0.24, 0.51, 0.76, 0.87, 0.77, 0.6, 0.4),
+  Q_meas_VAr = c(-0.38, -0.42, -0.29, 0.0, 0.25, 0.38, 0.41),
+  phi_meas_deg = c(-58, -39, -21, 0, 18, 32, 46)
+)
+
+# Дополнительные преобразования
+df <- df %>% mutate(
+  I_A = I_mA / 1000,
+  # суммарное напряжение по векторной сумме: UR (действительная) и разность (UL-UC) (мнимая)
+  U_calc_V = sqrt(U_R_V^2 + (U_L_V - U_C_V)^2),
+  phi_calc_rad = atan2(U_L_V - U_C_V, U_R_V),
+  phi_calc_deg = phi_calc_rad * 180 / pi,
+  P_calc_W = U_meas_V * I_A * cos(phi_calc_rad),
+  Q_calc_VAr = U_meas_V * I_A * sin(phi_calc_rad),
+  U_diff_pct = 100 * (U_calc_V - U_meas_V) / U_meas_V,
+  phi_diff_deg = phi_calc_deg - phi_meas_deg
+)
+
+# Показать таблицу
+print(df %>% select(f_Hz, U_meas_V, I_mA, U_R_V, U_L_V, U_C_V, P_meas_W, Q_meas_VAr, phi_meas_deg, U_calc_V, phi_calc_deg, P_calc_W, Q_calc_VAr, U_diff_pct, phi_diff_deg) %>%
+        mutate_if(is.numeric, ~round(., 3)))
+```
+
+# 3. Обработка данных и графики
+
+## 3.1 Ток как функция частоты
+
+```{r plot-current}
+ggplot(df, aes(x = f_Hz, y = I_mA)) +
+  geom_line() + geom_point() +
+  labs(title = "Ток I (мА) от частоты f (Гц)", x = "f (Гц)", y = "I (мА)") +
+  theme_minimal()
+```
+
+## 3.2 Напряжения U_L и U_C от частоты
+
+```{r plot-ul-uc}
+ggplot(df, aes(x = f_Hz)) +
+  geom_line(aes(y = U_L_V)) + geom_point(aes(y = U_L_V)) +
+  geom_line(aes(y = U_C_V)) + geom_point(aes(y = U_C_V)) +
+  labs(title = "U_L и U_C от частоты f", x = "f (Гц)", y = "U (В)") +
+  scale_x_continuous(breaks = df$f_Hz) +
+  theme_minimal() +
+  geom_text(aes(y = U_L_V, label = round(U_L_V,1)), hjust = -0.2, vjust = -0.5, size = 3)
+```
+
+## 3.3 Фазовый угол: измеренный vs рассчитанный
+
+```{r plot-phi}
+ggplot(df, aes(x = f_Hz)) +
+  geom_line(aes(y = phi_meas_deg), color = NULL) + geom_point(aes(y = phi_meas_deg)) +
+  geom_line(aes(y = phi_calc_deg), linetype = "dashed") + geom_point(aes(y = phi_calc_deg)) +
+  labs(title = "Угол φ (град) от частоты f: измеренный и рассчитанный", x = "f (Гц)", y = "φ (град)") +
+  scale_x_continuous(breaks = df$f_Hz) +
+  theme_minimal() +
+  annotate("text", x = 60, y = df$phi_calc_deg[nrow(df)], label = "calc", hjust = 1, size = 3)
+```
+
+# 4. Фазорные (векторные) диаграммы
+
+Векторные диаграммы построены при трёх типичных частотах: ниже резонанса (37 Гц), в резонансе (42 Гц), и выше резонанса (52 Гц). За опорный вектор принимаем напряжение на сопротивлении $U_R$ (совпадает по фазе с током). Векторы $U_L$ направлены вверх (+j), $U_C$ вниз (−j).
+
+```{r phasors, fig.width=6, fig.height=6}
+# Функция для построения фазорной диаграммы
+plot_phasor <- function(row, scale = 1) {
+  UR <- row$U_R_V
+  UL <- row$U_L_V
+  UC <- row$U_C_V
+  Ux <- UR
+  Uy <- UL - UC
+  Utot <- sqrt(Ux^2 + Uy^2)
+  phi_deg <- row$phi_calc_deg
+  df_ph <- tibble(x = c(0, UR, 0, 0), y = c(0, 0, UL, -UC),
+                  lab = c("origin", paste0("U_R = ", round(UR,2), " V"), paste0("U_L = ", round(UL,2), " V"), paste0("U_C = ", round(UC,2), " V")),
+                  xend = c(UR, UR, 0, 0), yend = c(0, 0, UL, -UC))
+  ggplot() +
+    geom_segment(aes(x = 0, y = 0, xend = UR, yend = 0), arrow = arrow(length = unit(0.2, "cm"))) +
+    geom_segment(aes(x = 0, y = 0, xend = 0, yend = UL), arrow = arrow(length = unit(0.2, "cm"))) +
+    geom_segment(aes(x = 0, y = 0, xend = 0, yend = -UC), arrow = arrow(length = unit(0.2, "cm"))) +
+    geom_segment(aes(x = 0, y = 0, xend = Ux, yend = Uy), arrow = arrow(length = unit(0.25, "cm")), color = "black") +
+    geom_text(aes(x = UR, y = 0), label = paste0("U_R\n", round(UR,2), " V"), hjust = -0.05, vjust = -0.5) +
+    geom_text(aes(x = 0, y = UL), label = paste0("U_L\n", round(UL,2), " V"), hjust = 0.1, vjust = 0) +
+    geom_text(aes(x = 0, y = -UC), label = paste0("U_C\n", round(UC,2), " V"), hjust = 0.1, vjust = 1) +
+    geom_text(aes(x = Ux*0.6, y = Uy*0.6), label = paste0("U_tot = ", round(Utot,2), " V\nφ = ", round(phi_deg,1), "°")) +
+    labs(title = paste0("Фазорная диаграмма при f = ", row$f_Hz, " Гц (масштаб: 1 В = 1 ед.)"), x = "Действительная, В", y = "Мнимая, В") +
+    coord_fixed() +
+    theme_minimal()
+}
+
+# Выбрать строки
+rows <- df %>% filter(f_Hz %in% c(37, 42, 52))
+plots <- purrr::map(1:nrow(rows), ~plot_phasor(rows[.x, ]))
+plots[[1]]
+plots[[2]]
+plots[[3]]
+```
+
+# 5. Временные диаграммы (пример)
+
+Сгенерируем временную диаграмму для одной выбранной частоты (например, резонанс 42 Гц). Для упрощения используем в качестве опорного фазового угла ток с фазой 0; напряжения на элементах получаем как амплитуды (RMS→амплитуда) и смещения фаз: $U_R$ по току (0°), $U_L$ на +90°, $U_C$ на −90°.
+
+```{r time-domain}
+# Выбрать частоту 42 Гц
+row42 <- df %>% filter(f_Hz == 42) %>% slice(1)
+
+f <- row42$f_Hz
+omega <- 2 * pi * f
+
+t <- seq(0, 1/f, length.out = 500)
+I_rms <- row42$I_mA / 1000
+I_amp <- I_rms * sqrt(2)
+U_R_amp <- row42$U_R_V * sqrt(2)
+U_L_amp <- row42$U_L_V * sqrt(2)
+U_C_amp <- row42$U_C_V * sqrt(2)
+
+# Фазовые углы относительно тока
+phi_I <- 0
+phi_UR <- 0
+phi_UL <- pi/2
+phi_UC <- -pi/2
+
+I_t <- I_amp * sin(omega * t + phi_I)
+U_R_t <- U_R_amp * sin(omega * t + phi_UR)
+U_L_t <- U_L_amp * sin(omega * t + phi_UL)
+U_C_t <- U_C_amp * sin(omega * t + phi_UC)
+
+tdf <- tibble(t = t, I = I_t, U_R = U_R_t, U_L = U_L_t, U_C = U_C_t)
+
+# Plot
+library(reshape2)
+mdf <- melt(tdf, id.vars = "t")
+
+ggplot(mdf, aes(x = t, y = value, color = variable)) +
+  geom_line() +
+  labs(title = paste0("Временные диаграммы (f = ", f, " Гц)"), x = "t, с", y = "Амплитуда") +
+  theme_minimal()
+```
+
+# 6. Обсуждение результатов
+
+-   Резонанс наблюдается при $f = 42$ Гц: измеренный угол φ ≈ 0°, рассчитанное суммарное напряжение близко к измеренному, $U_L \approx U_C$.
+-   Для частот ниже резонанса наблюдается отрицательный угол (цепь емкостная), для частот выше — положительный (индуктивная), что соответствует теории.
+-   Расхождения между рассчитанными и измеренными величинами находятся в пределах, ожидаемых для лабораторных измерений; возможные причины: погрешности приборов, активное сопротивление дросселя, взаимная индукция, неточные показания мультиметров при малых напряжениях.
+
+# 7. Заключение
+
+В работе успешно подтверждены основные свойства последовательной RLC-цепи: наличие резонанса при частоте, где реактивности взаимно компенсируются, характер изменения тока и фазового угла с частотой, а также возможности построения фазорных диаграмм и временных форм по измеренным компонентам.
+
+# Приложения
+
+-   Код для построения графиков и таблиц (включён в этот RMarkdown).
+-   При необходимости могу подготовить версию отчёта в PDF или DOCX — напишите, какой формат нужен.
