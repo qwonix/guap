@@ -1,0 +1,281 @@
+---
+title: "Лабораторная работа №20: Исследование релаксационных генераторов на основе операционных усилителей"
+lang: ru-RU
+format: pdf
+pdf-engine: xelatex
+mainfont: Times New Roman
+sansfont: Times New Roman
+monofont: Courier New
+fontsize: 14pt
+geometry: margin=2.5cm
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{caption}
+  - \usepackage{float}
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r setup}
+library(jsonlite)
+library(knitr)
+library(kableExtra)
+
+# --- Загрузка данных ---
+if (!file.exists("data_lr20.json")) {
+  stop("Файл 'data_lr20.json' не найден!")
+}
+d <- fromJSON("data_lr20.json")
+
+# Параметры схемы
+C       <- d$параметры$C_мкФ * 1e-6        # Ф
+U_vx    <- d$параметры$U_vx_В              # В
+Rp_vec  <- d$параметры$R_plus_Ом           # Ом, длина 2
+Rm_vec  <- d$параметры$ROC_minus_кОм * 1e3 # Ом, длина 2
+Roc_vec <- d$параметры$ROC_plus_кОм  * 1e3 # Ом, длина 3
+
+# Измеренные данные
+TI_meas   <- d$таблица_П1$TИ_мкс           # матрица 2×3, мкс
+Tp_meas   <- d$таблица_П2$TИ_plus_мкс      # матрица 4×3, мкс
+Tm_meas   <- d$таблица_П2$TИ_minus_мкс     # матрица 4×3, мкс
+T_meas    <- d$таблица_П2$T_мкс            # матрица 4×3, мкс
+
+# --- Теоретические расчёты ---
+
+# Формула (3): TИ = ROC- * C * ln(1 + R+ / ROC+), мкс
+# i — индекс ROC- (1..2), j — индекс ROC+ (1..3)
+TI_teor <- matrix(NA, nrow = 2, ncol = 3)
+for (i in 1:2) {
+  for (j in 1:3) {
+    TI_teor[i, j] <- round(
+      Rm_vec[i] * C * log(1 + Rp_vec[1] / Roc_vec[j]) * 1e6, 0
+    )
+  }
+}
+
+# Формула (2): T = 2 * ROC- * C * ln(1 + 2*R+ / ROC+), мкс
+# Порядок строк: (Rm=11кОм, Rp=1600), (Rm=11кОм, Rp=510),
+#                (Rm=30кОм, Rp=1600), (Rm=30кОм, Rp=510)
+T_teor <- matrix(NA, nrow = 4, ncol = 3)
+row_idx <- 1
+for (i in 1:2) {         # ROC-
+  for (k in 1:2) {       # R+
+    for (j in 1:3) {     # ROC+
+      T_teor[row_idx, j] <- round(
+        2 * Rm_vec[i] * C * log(1 + 2 * Rp_vec[k] / Roc_vec[j]) * 1e6, 0
+      )
+    }
+    row_idx <- row_idx + 1
+  }
+}
+
+# Форматирование ROC+ для заголовков таблиц
+Roc_names <- paste0(d$параметры$ROC_plus_кОм, " кОм")
+Rm_names  <- paste0(d$параметры$ROC_minus_кОм, " кОм")
+Rp_names  <- paste0(d$параметры$R_plus_Ом, " Ом")
+```
+
+**Цель работы**: исследование принципов построения, функционирования и расчета параметров релаксационных генераторов на основе операционных усилителей.
+
+## 1. Теоретические сведения
+
+Релаксационные генераторы предназначены для формирования прямоугольных импульсов с заданными характеристиками. В качестве активного элемента используются операционные усилители (ОУ). Математически работа ОУ описывается соотношением:
+
+$$U_\text{ВЫХ} = K_0 (U_\text{ВХ+} - U_\text{ВХ-}), \tag{1}$$
+
+где $K_0$ --- собственный коэффициент усиления ОУ по напряжению.
+
+**Автоколебательный мультивибратор.** Период генерируемых колебаний определяется по формуле:
+
+$$T = 2 \cdot R_\text{ОС-} \cdot C \cdot \ln\!\left(1 + \frac{2 R_+}{R_\text{ОС+}}\right). \tag{2}$$
+
+**Ждущий мультивибратор.** Длительность формируемого импульса:
+
+$$T_\text{И} = R_\text{ОС-} \cdot C \cdot \ln\!\left(1 + \frac{R_+}{R_\text{ОС+}}\right). \tag{3}$$
+
+Достоинства схем на ОУ: простота, стабильность, малая зависимость от характеристик элементов. Недостаток --- более узкий диапазон рабочих частот по сравнению с транзисторными схемами из-за инерционности ОУ при выходе из режима насыщения.
+
+## 2. Данные таблиц с измерениями и результатами теоретических расчётов
+
+### Ждущий мультивибратор (Таблица П1)
+
+```{r table-p1}
+# Строим таблицу П1
+col_header <- c("", Roc_names)
+
+tbl_p1 <- data.frame(
+  Параметр = c(
+    paste0("$T_\\text{И}$, мкс (ROC- = ", Rm_names[1], ")"),
+    paste0("$T_\\text{И ТЕОР}$, мкс (ROC- = ", Rm_names[1], ")"),
+    paste0("$T_\\text{И}$, мкс (ROC- = ", Rm_names[2], ")"),
+    paste0("$T_\\text{И ТЕОР}$, мкс (ROC- = ", Rm_names[2], ")")
+  ),
+  V1 = c(TI_meas[1,1], TI_teor[1,1], TI_meas[2,1], TI_teor[2,1]),
+  V2 = c(TI_meas[1,2], TI_teor[1,2], TI_meas[2,2], TI_teor[2,2]),
+  V3 = c(TI_meas[1,3], TI_teor[1,3], TI_meas[2,3], TI_teor[2,3])
+)
+colnames(tbl_p1) <- c("Параметр", Roc_names)
+
+kable(tbl_p1, booktabs = TRUE, escape = FALSE,
+      caption = paste0("Ждущий мультивибратор. $U_\\text{ВХ}$ = ",
+                       U_vx, " В; $C$ = ", d$параметры$C_мкФ,
+                       " мкФ; $R_+$ = 1600 Ом"),
+      align = c("l","c","c","c")) |>
+  kable_styling(latex_options = c("hold_position", "scale_down")) |>
+  pack_rows(paste0("ROC- = ", Rm_names[1]), 1, 2) |>
+  pack_rows(paste0("ROC- = ", Rm_names[2]), 3, 4)
+```
+
+### Автоколебательный мультивибратор (Таблица П2)
+
+```{r table-p2}
+# Строим таблицу П2 — 4 блока по 4 строки (T+, T-, T, Tтеор)
+row_labels <- c(
+  "$T^+_\\text{И}$, мкс",
+  "$T^-_\\text{И}$, мкс",
+  "$T$, мкс",
+  "$T_\\text{ТЕОР}$, мкс"
+)
+
+# Порядок: (11кОм,1600), (11кОм,510), (30кОм,1600), (30кОм,510)
+block_names <- c(
+  paste0("ROC- = ", Rm_names[1], ", R+ = ", Rp_names[1]),
+  paste0("ROC- = ", Rm_names[1], ", R+ = ", Rp_names[2]),
+  paste0("ROC- = ", Rm_names[2], ", R+ = ", Rp_names[1]),
+  paste0("ROC- = ", Rm_names[2], ", R+ = ", Rp_names[2])
+)
+
+rows_list <- list()
+for (b in 1:4) {
+  rows_list[[b]] <- data.frame(
+    Параметр = row_labels,
+    V1 = c(Tp_meas[b,1], Tm_meas[b,1], T_meas[b,1], T_teor[b,1]),
+    V2 = c(Tp_meas[b,2], Tm_meas[b,2], T_meas[b,2], T_teor[b,2]),
+    V3 = c(Tp_meas[b,3], Tm_meas[b,3], T_meas[b,3], T_teor[b,3])
+  )
+}
+tbl_p2 <- do.call(rbind, rows_list)
+colnames(tbl_p2) <- c("Параметр", Roc_names)
+
+kable(tbl_p2, booktabs = TRUE, escape = FALSE,
+      caption = paste0("Автоколебательный мультивибратор. $C$ = ",
+                       d$параметры$C_мкФ, " мкФ"),
+      align = c("l","c","c","c")) |>
+  kable_styling(latex_options = c("hold_position", "scale_down")) |>
+  pack_rows(block_names[1], 1,  4) |>
+  pack_rows(block_names[2], 5,  8) |>
+  pack_rows(block_names[3], 9,  12) |>
+  pack_rows(block_names[4], 13, 16)
+```
+
+## 3. Графические зависимости
+
+### Ждущий мультивибратор: $T_\text{И}$ и $T_\text{И ТЕОР}$ от $R_\text{ОС+}$
+
+```{r plots-p1, fig.width=7, fig.height=3.5, fig.cap="Ждущий мультивибратор. Зависимость длительности импульса от Rос+"}
+par(mfrow = c(1, 2), mar = c(4, 4, 3, 1))
+x_kOm <- d$параметры$ROC_plus_кОм
+
+for (i in 1:2) {
+  y_meas  <- as.numeric(TI_meas[i, ])
+  y_teor  <- as.numeric(TI_teor[i, ])
+  y_range <- range(c(y_meas, y_teor)) * c(0.9, 1.1)
+
+  plot(x_kOm, y_meas,
+       type = "b", pch = 16, col = "black", lwd = 1.5,
+       ylim = y_range,
+       xlab = "Roc+, кОм",
+       ylab = "TИ, мкс",
+       main = paste0("Roc- = ", d$параметры$ROC_minus_кОм[i], " кОм"),
+       xaxt = "n")
+  axis(1, at = x_kOm, labels = x_kOm)
+
+  lines(x_kOm, y_teor, type = "b", pch = 1, col = "black",
+        lwd = 1.5, lty = 2)
+
+  legend("topright",
+         legend = c("TИ измер.", "TИ теор."),
+         lty = c(1, 2), pch = c(16, 1), bty = "n", cex = 0.85)
+}
+par(mfrow = c(1, 1))
+```
+
+### Автоколебательный мультивибратор: $T$ и $T_\text{ТЕОР}$ от $R_\text{ОС+}$
+
+```{r plots-p2-1, fig.width=7, fig.height=3.5, fig.cap="Автоколебательный мультивибратор. Roc- = 11 кОм"}
+par(mfrow = c(1, 2), mar = c(4, 4, 3, 1))
+x_kOm <- d$параметры$ROC_plus_кОм
+
+for (k in 1:2) {
+  b <- k  # первые две строки для ROC-=11кОм
+  y_meas <- as.numeric(T_meas[b, ])
+  y_teor <- as.numeric(T_teor[b, ])
+  y_range <- range(c(y_meas, y_teor)) * c(0.9, 1.1)
+
+  plot(x_kOm, y_meas,
+       type = "b", pch = 16, col = "black", lwd = 1.5,
+       ylim = y_range,
+       xlab = "Roc+, кОм",
+       ylab = "T, мкс",
+       main = paste0("Roc- = 11 кОм, R+ = ", d$параметры$R_plus_Ом[k], " Ом"),
+       xaxt = "n")
+  axis(1, at = x_kOm, labels = x_kOm)
+
+  lines(x_kOm, y_teor, type = "b", pch = 1, col = "black",
+        lwd = 1.5, lty = 2)
+
+  legend("topright",
+         legend = c("T измер.", "T теор."),
+         lty = c(1, 2), pch = c(16, 1), bty = "n", cex = 0.85)
+}
+par(mfrow = c(1, 1))
+```
+
+```{r plots-p2-2, fig.width=7, fig.height=3.5, fig.cap="Автоколебательный мультивибратор. Roc- = 30 кОм"}
+par(mfrow = c(1, 2), mar = c(4, 4, 3, 1))
+
+for (k in 1:2) {
+  b <- k + 2  # строки 3 и 4 для ROC-=30кОм
+  y_meas <- as.numeric(T_meas[b, ])
+  y_teor <- as.numeric(T_teor[b, ])
+  y_range <- range(c(y_meas, y_teor)) * c(0.9, 1.1)
+
+  plot(x_kOm, y_meas,
+       type = "b", pch = 16, col = "black", lwd = 1.5,
+       ylim = y_range,
+       xlab = "Roc+, кОм",
+       ylab = "T, мкс",
+       main = paste0("Roc- = 30 кОм, R+ = ", d$параметры$R_plus_Ом[k], " Ом"),
+       xaxt = "n")
+  axis(1, at = x_kOm, labels = x_kOm)
+
+  lines(x_kOm, y_teor, type = "b", pch = 1, col = "black",
+        lwd = 1.5, lty = 2)
+
+  legend("topright",
+         legend = c("T измер.", "T теор."),
+         lty = c(1, 2), pch = c(16, 1), bty = "n", cex = 0.85)
+}
+par(mfrow = c(1, 1))
+```
+
+## 4. Выводы
+
+```{r compute-errors}
+# Средние относительные погрешности для выводов
+err_p1 <- mean(abs(TI_meas - TI_teor) / TI_teor * 100)
+err_p2 <- mean(abs(T_meas  - T_teor)  / T_teor  * 100)
+```
+
+В ходе лабораторной работы были исследованы принципы построения, функционирования и расчёта параметров релаксационных генераторов на основе операционных усилителей: ждущего и автоколебательного мультивибраторов.
+
+Из таблицы П1 видно, что с увеличением $R_\text{ОС+}$ длительность формируемого импульса $T_\text{И}$ **убывает** как в измеренных, так и в теоретических значениях. При увеличении $R_\text{ОС-}$ длительность импульса пропорционально возрастает. Средняя относительная погрешность расчёта для ждущего мультивибратора составила $\approx$ `r round(err_p1, 1)`%.
+
+Из таблицы П2 следует, что период $T$ автоколебательного мультивибратора также убывает с ростом $R_\text{ОС+}$ и возрастает с ростом $R_\text{ОС-}$. При уменьшении $R_+$ период колебаний сокращается. Разница между $T^+_\text{И}$ и $T^-_\text{И}$ (при $R_\text{ОС-} = \text{const}$) обусловлена несимметрией в реальной схеме. Средняя относительная погрешность расчёта для автоколебательного мультивибратора составила $\approx$ `r round(err_p2, 1)`%.
+
+Расхождение теоретических и экспериментальных значений объясняется инерционными свойствами ОУ (конечным временем выхода из режима насыщения), а также разбросом номиналов реальных резисторов и конденсаторов относительно номинальных значений.
