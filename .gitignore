@@ -6,3 +6,6 @@
 .quarto
 .idea
 *.blend1
+/.obsidian/
+*.exe
+lab_indo.*
