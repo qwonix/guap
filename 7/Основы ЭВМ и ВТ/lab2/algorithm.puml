@@ -1,0 +1,31 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+skinparam activityBackgroundColor white
+title ЛР2 · Вариант 11 · Алгоритм 12 · Функция 2
+start
+:Загрузить X, Y;
+if (Y < 0?) then (да)
+  :X := -X\nY := -Y;
+else (нет)
+endif
+:S := 0; M := X\nQ := Y; i := 0;
+while (i < 9?) is (да)
+  if ((Q AND 1) = 1?) then (да)
+    :S := S + M;
+  else (нет)
+  endif
+  :M := M << 1\nQ := Q >> 1 (логический сдвиг)\ni := i + 1;
+endwhile (нет)
+:P := S;
+:R := P AND 7;
+note right
+  Копируются три младших бита P.
+  Содержимое P не изменяется.
+end note
+:Сохранить P и R в памяти;
+:Вывести P и R;
+stop
+@enduml
