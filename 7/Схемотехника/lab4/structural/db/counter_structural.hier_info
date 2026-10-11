@@ -1,0 +1,42 @@
+|counter_structural
+clk => clk~0.IN4
+enable => T~0.IN1
+enable => T~1.IN1
+enable => T~3.IN1
+enable => T~6.IN1
+reset => reset~0.IN4
+counter[0] <= t_flip_flop:TQ0.Q
+counter[1] <= t_flip_flop:TQ1.Q
+counter[2] <= t_flip_flop:TQ2.Q
+counter[3] <= t_flip_flop:TQ3.Q
+cout <= cout~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter_structural|t_flip_flop:TQ0
+clk => Q~reg0.CLK
+reset => Q~reg0.ACLR
+T => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter_structural|t_flip_flop:TQ1
+clk => Q~reg0.CLK
+reset => Q~reg0.ACLR
+T => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter_structural|t_flip_flop:TQ2
+clk => Q~reg0.CLK
+reset => Q~reg0.ACLR
+T => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|counter_structural|t_flip_flop:TQ3
+clk => Q~reg0.CLK
+reset => Q~reg0.ACLR
+T => Q~reg0.ENA
+Q <= Q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

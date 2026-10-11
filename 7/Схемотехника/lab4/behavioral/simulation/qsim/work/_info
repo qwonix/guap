@@ -1,0 +1,81 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\admin\.codex\.chatgpt-projects\g-p-6ac179050a608191a4b57d4fec6d5e1c\lab4\behavioral\simulation\qsim
+vcounter_behavioral
+Z1 !s100 UQ:T]_e2[`Dg1HZAizJQ^1
+Z2 IUkjaVU`hzfmhoKREm3SYT2
+Z3 Vfb?OMdSC]d4zBE5:0IYYO2
+Z4 dC:\Users\admin\.codex\.chatgpt-projects\g-p-6ac179050a608191a4b57d4fec6d5e1c\lab4\behavioral\simulation\qsim
+Z5 w1791754221
+Z6 8counter_behavioral.vo
+Z7 Fcounter_behavioral.vo
+L0 31
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 !s90 -work|work|counter_behavioral.vo|
+Z10 o-work work -O0
+!i10b 1
+!s85 0
+Z11 !s108 1791754221.460000
+Z12 !s107 counter_behavioral.vo|
+!s101 -O0
+vcounter_behavioral_vlg_check_tst
+!i10b 1
+Z13 !s100 @P1Gfz>iVCgMJ^MA[LYE93
+Z14 IK6RHA2YUjI>:OgbXa8>An2
+Z15 V0>o^^KODj;jUzkSGIMU6Z1
+R4
+Z16 w1791754220
+Z17 8counter_behavioral.vwf.vt
+Z18 Fcounter_behavioral.vwf.vt
+L0 61
+R8
+r1
+!s85 0
+31
+Z19 !s108 1791754221.501000
+Z20 !s107 counter_behavioral.vwf.vt|
+Z21 !s90 -work|work|counter_behavioral.vwf.vt|
+!s101 -O0
+R10
+vcounter_behavioral_vlg_sample_tst
+!i10b 1
+Z22 !s100 DPbCXh`LUCSX5E__S=ce`0
+Z23 IjbMN_hma8_GhSMH25bjJS2
+Z24 Vai283XfmRe[5O[QMA;n5^1
+R4
+R16
+R17
+R18
+L0 29
+R8
+r1
+!s85 0
+31
+R19
+R20
+R21
+!s101 -O0
+R10
+vcounter_behavioral_vlg_vec_tst
+!i10b 1
+Z25 !s100 _`;o?d<^mSJ=oS8TzEeBL2
+Z26 I4VEaN7TWOJd;Hj2OBdUz40
+Z27 V0b1EXHlYBS`[XFj7VSi_C1
+R4
+R16
+R17
+R18
+Z28 L0 240
+R8
+r1
+!s85 0
+31
+R19
+R20
+R21
+!s101 -O0
+R10

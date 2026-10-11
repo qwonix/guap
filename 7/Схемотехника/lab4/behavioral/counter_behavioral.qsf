@@ -1,0 +1,37 @@
+set_global_assignment -name FAMILY "MAX II"
+set_global_assignment -name DEVICE EPM570T100C5
+set_global_assignment -name TOP_LEVEL_ENTITY counter_behavioral
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED"
+set_global_assignment -name LAST_QUARTUS_VERSION 13.1
+set_global_assignment -name SIMULATION_MODE FUNCTIONAL
+set_global_assignment -name VECTOR_WAVEFORM_FILE counter_behavioral.vwf
+set_global_assignment -name VERILOG_FILE counter_behavioral.v
+set_location_assignment PIN_14 -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_location_assignment PIN_26 -to enable
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to enable
+set_location_assignment PIN_27 -to reset
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to reset
+set_location_assignment PIN_47 -to counter[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to counter[0]
+set_location_assignment PIN_48 -to counter[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to counter[1]
+set_location_assignment PIN_49 -to counter[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to counter[2]
+set_location_assignment PIN_50 -to counter[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to counter[3]
+set_location_assignment PIN_28 -to cout
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cout
+set_global_assignment -name VECTOR_OUTPUT_FORMAT VWF
+set_global_assignment -name SIM_OVERWRITE_WAVEFORM_INPUTS OFF
+set_global_assignment -name INCREMENTAL_VECTOR_INPUT_SOURCE counter_behavioral.vwf
+set_global_assignment -name SDC_FILE counter_behavioral.sdc
+
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"
+
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+set_global_assignment -name EDA_NETLIST_WRITER_OUTPUT_DIR "C:/Users/admin/.codex/.chatgpt-projects/g-p-6ac179050a608191a4b57d4fec6d5e1c/lab4/behavioral/simulation/qsim/" -section_id eda_simulation
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_simulation
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
